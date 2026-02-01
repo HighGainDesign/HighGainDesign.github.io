@@ -1,21 +1,787 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>High Gain Design</title>
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
-<style>
-body { 
-background-color: #bfb464;
-font-family: system, -apple-system, BlinkMacSystemFont,
-"Helvetica Neue", "Lucida Grande";
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>High Gain Design | Semiconductor & AI Strategy Consulting</title>
+    <meta name="description" content="Strategic advisory for semiconductor and AI companies. Expert insights for equity research, business development, and technology assessment.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="180x180" href="favicon.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        :root {
+            --primary: #ffffff;
+            --primary-light: #e5e5e5;
+            --accent: #f97316;
+            --accent-dark: #ea580c;
+            --text: #ffffff;
+            --text-light: #a3a3a3;
+            --bg: #0a0a0a;
+            --bg-alt: #141414;
+            --bg-card: #1a1a1a;
+            --border: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background: var(--bg);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
+        }
+
+        body {
+            background: var(--bg);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .visual-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .visual-card .icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .visual-card .icon svg {
+            width: 40px;
+            height: 40px;
+            color: white;
+        }
+
+        .visual-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .visual-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 2rem;
+            background: var(--bg);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent);
+        }
+
+        .service-card .service-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .service-card .service-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--bg);
+        }
+
+        .service-card h3 {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .service-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Expertise Section */
+        .expertise {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+        }
+
+        .expertise .section-header h2 {
+            color: white;
+        }
+
+        .expertise .section-header p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .expertise-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem 2rem;
+        }
+
+        .expertise-grid.three-col {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .expertise-item {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .expertise-icon {
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 1rem;
+            background: rgba(249, 115, 22, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .expertise-icon svg {
+            width: 28px;
+            height: 28px;
+            color: #f97316;
+        }
+
+        .expertise-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .expertise-item p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 2rem;
+            background: var(--bg-alt);
+        }
+
+        .about-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-visual {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            border-radius: 16px;
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-logo {
+            width: 140px;
+            height: 140px;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            color: var(--text);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .about-text .credentials {
+            margin-top: 2rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .credential {
+            text-align: center;
+        }
+
+        .credential .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .credential .label {
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* Apps Section */
+        .apps {
+            padding: 6rem 2rem;
+            background: var(--bg-alt);
+        }
+
+        .apps-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .apps-info {
+            text-align: center;
+        }
+
+        .apps-description {
+            margin-bottom: 2rem;
+        }
+
+        .apps-description p {
+            color: var(--text);
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+
+        .apps-cta {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 2rem;
+            background: var(--bg);
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-info-centered {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .contact-item .icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-item .icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent);
+        }
+
+        .contact-item a,
+        .contact-item span {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.95rem;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text .subtitle {
+                margin: 0 auto 2rem;
+            }
+
+            .hero-cta {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .expertise-grid,
+            .expertise-grid.three-col {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-visual {
+                max-width: 200px;
+                margin: 0 auto;
+            }
+
+            .about-text .credentials {
+                justify-content: center;
+            }
+
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
-<center>
-<img src="images/HighGain.jpg">
-<h1>Coming Soon!</h1>
-</center>
-</body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <svg class="logo-icon" viewBox="0 0 810 810" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#f97316" d="M 713.261719 200.574219 L 663.046875 84.769531 L 562.816406 161.496094 L 606.855469 172.933594 C 533.097656 329.179688 390.917969 451.546875 221.917969 492.035156 C 181.898438 501.96875 140.628906 508.59375 99.300781 508.574219 C 97.195312 508.449219 96.726562 512.054688 99.078125 512.21875 C 127.847656 515.101562 156.75 514.320312 185.53125 511.921875 C 391.339844 496.019531 572.613281 368.066406 673.113281 190.144531 Z M 583.371094 345.46875 L 583.371094 687.253906 L 677.324219 687.253906 L 677.324219 225.722656 C 649.566406 269.492188 619.058594 308.8125 583.371094 345.46875 Z M 469.519531 438.382812 L 469.519531 687.253906 L 563.472656 687.253906 L 563.472656 365.03125 C 550.207031 377.523438 536.136719 389.714844 521.46875 401.410156 C 505.042969 414.324219 487.394531 427.070312 469.519531 438.382812 Z M 355.664062 495.53125 L 355.664062 687.253906 L 449.621094 687.253906 L 449.621094 450.585938 C 420.230469 467.855469 387.875 483.363281 355.664062 495.53125 Z M 241.816406 526.789062 L 241.816406 687.253906 L 335.769531 687.253906 L 335.769531 502.660156 C 305.300781 513.070312 273.421875 521.242188 241.816406 526.789062 Z M 221.917969 529.972656 L 221.917969 687.253906 L 127.960938 687.253906 L 127.960938 536.039062 C 159.035156 536.65625 190.898438 534.425781 221.917969 529.972656"/>
+                </svg>
+                <span>High Gain Design</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#expertise">Expertise</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#apps">Apps</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Semiconductor & AI Strategy Advisory</h1>
+                <p class="subtitle">Helping equity research analysts, investors, and technology companies navigate the semiconductor landscape with deep industry expertise.</p>
+                <div class="hero-cta">
+                    <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                    <a href="#services" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="visual-card">
+                    <div class="icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                        </svg>
+                    </div>
+                    <h3>30+ Years</h3>
+                    <p>Technology Industry Experience</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="section-header">
+            <h2>Advisory Services</h2>
+            <p>Strategic guidance for investors and technology companies seeking semiconductor and AI expertise.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
+                    </svg>
+                </div>
+                <h3>Strategy Consulting</h3>
+                <p>Business development, market entry strategy, and partnership identification for semiconductor and AI companies looking to accelerate growth.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                </div>
+                <h3>Technical Advisory</h3>
+                <p>Product roadmap evaluation, technology assessment, and due diligence support for investors and companies navigating complex technical decisions.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                    </svg>
+                </div>
+                <h3>Financial Research Consultations</h3>
+                <p>One-on-one calls with equity research analysts, hedge funds, and private equity firms seeking semiconductor industry insights and competitive intelligence.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="expertise">
+        <div class="section-header">
+            <h2>Areas of Expertise</h2>
+            <p>Deep knowledge spanning established platforms to emerging technologies.</p>
+        </div>
+        <div class="expertise-grid three-col">
+            <div class="expertise-item">
+                <div class="expertise-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                    </svg>
+                </div>
+                <h4>Semiconductors</h4>
+                <p>Chip design, ASICs, custom silicon, manufacturing, supply chain</p>
+            </div>
+            <div class="expertise-item">
+                <div class="expertise-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <h4>Computing Platforms</h4>
+                <p>Consumer electronics, PCs, gaming consoles, automotive, data centers</p>
+            </div>
+            <div class="expertise-item">
+                <div class="expertise-icon">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                </div>
+                <h4>AI & Machine Learning</h4>
+                <p>Accelerators, training infrastructure, inference systems</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-content">
+            <div class="about-visual">
+                <svg class="about-logo" viewBox="0 0 810 810" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="rgba(255,255,255,1)" d="M 713.261719 200.574219 L 663.046875 84.769531 L 562.816406 161.496094 L 606.855469 172.933594 C 533.097656 329.179688 390.917969 451.546875 221.917969 492.035156 C 181.898438 501.96875 140.628906 508.59375 99.300781 508.574219 C 97.195312 508.449219 96.726562 512.054688 99.078125 512.21875 C 127.847656 515.101562 156.75 514.320312 185.53125 511.921875 C 391.339844 496.019531 572.613281 368.066406 673.113281 190.144531 Z M 583.371094 345.46875 L 583.371094 687.253906 L 677.324219 687.253906 L 677.324219 225.722656 C 649.566406 269.492188 619.058594 308.8125 583.371094 345.46875 Z M 469.519531 438.382812 L 469.519531 687.253906 L 563.472656 687.253906 L 563.472656 365.03125 C 550.207031 377.523438 536.136719 389.714844 521.46875 401.410156 C 505.042969 414.324219 487.394531 427.070312 469.519531 438.382812 Z M 355.664062 495.53125 L 355.664062 687.253906 L 449.621094 687.253906 L 449.621094 450.585938 C 420.230469 467.855469 387.875 483.363281 355.664062 495.53125 Z M 241.816406 526.789062 L 241.816406 687.253906 L 335.769531 687.253906 L 335.769531 502.660156 C 305.300781 513.070312 273.421875 521.242188 241.816406 526.789062 Z M 221.917969 529.972656 L 221.917969 687.253906 L 127.960938 687.253906 L 127.960938 536.039062 C 159.035156 536.65625 190.898438 534.425781 221.917969 529.972656"/>
+                </svg>
+            </div>
+            <div class="about-text">
+                <h2>About High Gain Design</h2>
+                <p>High Gain Design provides strategic advisory services at the intersection of semiconductors, artificial intelligence, and business strategy. Based in the San Francisco Bay Area, we work with technology companies, equity research analysts, and institutional investors seeking expert insights into the rapidly evolving semiconductor landscape.</p>
+                <p>With over 30 years of hands-on experience at industry leaders including Apple, Google, Tesla, AMD, and major gaming platforms, we offer a unique perspective on market dynamics, competitive positioning, and emerging technologies that shape investment decisions and business strategies.</p>
+                <div class="credentials">
+                    <div class="credential">
+                        <div class="number">Bay Area</div>
+                        <div class="label">Based</div>
+                    </div>
+                    <div class="credential">
+                        <div class="number">Global</div>
+                        <div class="label">Reach</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apps Section -->
+    <section id="apps" class="apps">
+        <div class="apps-content">
+            <div class="section-header">
+                <h2>App Development</h2>
+                <p>Beyond consulting, High Gain Design creates independent software products for mobile, desktop, and web.</p>
+            </div>
+            <div class="apps-info">
+                <div class="apps-description">
+                    <p>As a separate venture under High Gain Design, we develop and publish original applications across various categories. These projects reflect a passion for crafting useful, well-designed software experiences.</p>
+                    <p>Interested in our apps or have ideas for collaboration? Get in touch below.</p>
+                </div>
+                <div class="apps-cta">
+                    <a href="#contact" class="btn btn-secondary">Inquire About Apps</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="contact-content">
+            <div class="section-header">
+                <h2>Get in Touch</h2>
+                <p>Interested in a consultation? Reach out to discuss how we can help.</p>
+            </div>
+            <div class="contact-info-centered">
+                <div class="contact-item">
+                    <div class="icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <a href="mailto:info@highgain.design">info@highgain.design</a>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">
+                        <svg fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </div>
+                    <a href="https://www.linkedin.com/in/anandman/" target="_blank" rel="noopener">LinkedIn</a>
+                </div>
+                <div class="contact-item">
+                    <div class="icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </div>
+                    <span>San Francisco Bay Area</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 High Gain Design. All rights reserved.</p>
+    </footer>
+</body>
 </html>
