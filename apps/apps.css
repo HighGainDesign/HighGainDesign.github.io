@@ -1,0 +1,36 @@
+.apps-page { min-height: 100vh; }
+.apps-page a:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+.apps-page .nav-links a[aria-current="page"] { color: var(--accent); }
+.apps-main { max-width: 1040px; margin: 0 auto; padding: 8rem 2rem 4rem; }
+.apps-heading { margin-bottom: 3rem; }
+.back-link { color: var(--text-light); text-decoration: none; font-size: 0.9rem; }
+.back-link:hover { color: var(--accent); }
+.apps-heading h1 { margin: 1.5rem 0 1rem; font-size: clamp(2.2rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.04em; }
+.apps-heading > p { color: var(--text-light); max-width: 560px; font-size: 1.1rem; }
+.app-card { padding: 2.5rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; }
+.app-intro { display: flex; align-items: center; gap: 1.5rem; }
+.app-icon { width: 112px; height: 112px; object-fit: contain; flex-shrink: 0; }
+.app-platform { color: var(--accent); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; }
+.app-card h2 { font-size: clamp(1.65rem, 4vw, 2.2rem); letter-spacing: -0.03em; line-height: 1.2; margin-bottom: 0.4rem; }
+.app-tagline { color: var(--text-light); }
+.app-description { max-width: 740px; margin: 1.75rem 0; }
+.app-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.app-actions .btn { text-align: center; }
+.app-availability { color: var(--text-light); font-size: 0.85rem; margin-top: 1rem; }
+.app-setup { border-top: 1px solid var(--border); margin-top: 2rem; padding-top: 1.75rem; }
+.app-setup h3 { font-size: 1rem; margin-bottom: 0.75rem; }
+.app-setup ol { padding-left: 1.25rem; color: var(--text-light); }
+.app-setup li + li { margin-top: 0.4rem; }
+.app-links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 1.75rem; }
+.app-links a, .apps-contact a { color: var(--accent); text-underline-offset: 3px; }
+.apps-contact { margin-top: 2rem; color: var(--text-light); }
+.apps-footer { background: var(--bg); color: var(--text-light); border-top: 1px solid var(--border); }
+@media (max-width: 600px) {
+    .apps-main { padding: 7rem 1.25rem 3rem; }
+    .app-card { padding: 1.5rem; }
+    .app-intro { align-items: flex-start; gap: 1rem; }
+    .app-icon { width: 72px; height: 72px; }
+    .app-platform { font-size: 0.75rem; }
+    .app-actions { flex-direction: column; }
+    .app-actions .btn { width: 100%; }
+}
